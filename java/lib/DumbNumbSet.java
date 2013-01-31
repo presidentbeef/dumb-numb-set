@@ -3,16 +3,16 @@ import java.lang.Long;
 import java.lang.Math;
 
 class DumbNumbSet {
-  private HashMap<Long, Long> bitsets;
+  private HashMap<Integer, Long> bitsets;
 
   // Create new DumbNumbSet
   public DumbNumbSet() {
-    this.bitsets = new HashMap<Long, Long>();
+    this.bitsets = new HashMap<Integer, Long>();
   }
 
   // Add number to set
-  public void add(long num) {
-    long index = num / Long.SIZE;
+  public void add(int num) {
+    int index = num / Long.SIZE;
 
     Long bitset = this.bitsets.get(index);
 
@@ -25,8 +25,8 @@ class DumbNumbSet {
   }
 
   // Check if number is in set
-  public boolean hasValue(long num) {
-    long index = num / Long.SIZE;
+  public boolean hasValue(int num) {
+    int index = num / Long.SIZE;
 
     Long bitset = this.bitsets.get(index);
 
