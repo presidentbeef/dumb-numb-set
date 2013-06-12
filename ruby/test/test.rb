@@ -37,4 +37,29 @@ class TestDumbNumbSet < Test::Unit::TestCase
     assert_not_include? 61
     assert_not_include? 63
   end
+
+  def test_ordered
+    100000.times do |i|
+      @ns.add i
+      assert_include? i
+    end
+  end
+
+  def test_every_other
+    100000.times do |i|
+      if i.odd?
+        @ns.add i
+        assert_include? i
+      else
+        assert_not_include? i
+      end
+    end
+  end
+
+  def test_double
+    1.upto 10000 do |i|
+      @ns.add i * 2
+      assert_include? i * 2
+    end
+  end
 end

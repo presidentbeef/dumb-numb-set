@@ -3,7 +3,7 @@ $LOAD_PATH.unshift "#{File.expand_path(File.dirname(__FILE__))}/../lib"
 require 'benchmark'
 require 'dumb_numb_set'
 
-size = 100000
+size = 1000000
 
 def hash_add data
   h = Hash.new
@@ -11,6 +11,8 @@ def hash_add data
   data.each do |d|
     h[d] = true
   end
+
+  h
 end
 
 def ns_add data
@@ -19,6 +21,8 @@ def ns_add data
   data.each do |d|
     ns.add d
   end
+
+  ns
 end
 
 rand_data = Array.new(size) { rand(size * 100) }
@@ -48,5 +52,21 @@ Benchmark.bmbm do |t|
 
   t.report "DumbNumbSet add shuffled" do
     ns_add shuffle_data
+  end
+
+  t.report "Hash look up" do
+    h = hash_add order_data
+
+    shuffle_data.each do |d|
+      h.has_key? d
+    end
+  end
+
+  t.report "DNS look up" do
+    ns = ns_add order_data
+
+    shuffle_data.each do |d|
+      ns.include? d
+    end
   end
 end

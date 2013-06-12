@@ -3,8 +3,8 @@ require 'dumb_numb_set'
 
 srand 1283
 
-$size = 100000000
-$multiplier = 100
+$size = ARGV[0].to_i
+$multiplier = 10
 
 class RandThing
   def each
@@ -17,17 +17,24 @@ end
 ordered = (0..$size)
 
 data = RandThing.new
+data = ordered
 
-if ARGV[0] == "hash"
-  h = Hash.new
-  data.each do |d|
-    h[d] = true
-  end
-else
-  ns = DumbNumbSet.new
-  data.each do |d|
-    ns.add d
-  end
+h = Hash.new
+data.each do |d|
+  h[d] = true
 end
 
-puts `ps aux | grep "ruby mem.rb"`
+h_len = Marshal.dump(h).length
+
+puts "Hash: #{h_len}"
+
+ns = DumbNumbSet.new
+data.each do |d|
+  ns.add d
+end
+
+ns_len = Marshal.dump(ns).length
+
+puts "DNS: #{ns_len}"
+
+puts "Difference: #{((h_len - ns_len) / h_len.to_f) * 100}"
