@@ -4,7 +4,7 @@ require 'dumb_numb_set'
 srand 1283
 
 $size = ARGV[0].to_i
-$multiplier = 10
+$multiplier = 100
 
 class RandThing
   def each
@@ -17,7 +17,7 @@ end
 ordered = (0..$size)
 
 data = RandThing.new
-data = ordered
+#data = ordered
 
 h = Hash.new
 data.each do |d|
