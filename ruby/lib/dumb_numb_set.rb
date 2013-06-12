@@ -39,7 +39,7 @@ class DumbNumbSet
 
     return false unless bitset
 
-    bitset == bitset | bin_index(num)
+    bitset & bin_index(num) != 0
   end
 
   # Returns number of keys in set (not number of values).
@@ -50,6 +50,6 @@ class DumbNumbSet
   private
 
   def bin_index num
-    2 ** (num % @div)
+    1 << (num % @div)
   end
 end
