@@ -14,7 +14,7 @@ class DumbNumbSet
   def add num
     raise ArgumentError if num < 0 or not num.integer?
 
-    index = num / @div
+    index = bitset_index num
 
     bitset = @bitsets[index]
 
@@ -33,7 +33,7 @@ class DumbNumbSet
   def include? num
     return false unless num >= 0 or not num.integer?
 
-    index = num / @div
+    index = bitset_index num
 
     bitset = @bitsets[index]
 
@@ -51,5 +51,10 @@ class DumbNumbSet
 
   def bin_index num
     1 << (num % @div)
+  end
+
+  # Calculate the key of the bitset for a given number.
+  def bitset_index num
+    (num / @div)
   end
 end
