@@ -12,7 +12,7 @@ class DumbNumbSet
   # Add a non-negative integer to the set.
   # Raises an ArgumentError if the number given is not a non-negative integer.
   def add num
-    raise ArgumentError if num < 0 or not num.integer?
+    check_num num
 
     index = bitset_index num
 
@@ -31,7 +31,7 @@ class DumbNumbSet
 
   # Returns true if the given number is in the set.
   def include? num
-    return false unless num >= 0 or not num.integer?
+    check_num num
 
     index = bitset_index num
 
@@ -56,5 +56,12 @@ class DumbNumbSet
   # Calculate the key of the bitset for a given number.
   def bitset_index num
     (num / @div)
+  end
+
+  # Check that the argument is a valid number.
+  def check_num num
+    unless num.is_a? Fixnum and num.integer? and num >= 0
+      raise ArgumentError, "Argument must be positive integer"
+    end
   end
 end
