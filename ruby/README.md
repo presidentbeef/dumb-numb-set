@@ -1,11 +1,13 @@
-### DNS
+## DNS
 
 The DumbNumbSet (DNS) is intended to be somewhat efficient storage for mostly
 consecutive, positive integers. In particular, the serialized size should be
 small for sending over the network. Memory usage should be similarly less than
 a stock set or hash table.
 
-Right now you can only add values to the DNS.
+### Installation
+
+    gem install dumb_numb_set
 
 ### Usage
 
@@ -13,7 +15,11 @@ Right now you can only add values to the DNS.
 
     dns << 1
 
-    dns.include? 1 #True!
+    dns.include? 1  #=> true
+
+    dns.remove 1
+
+    dns.include? 1  #=> false
 
 ### Tests
 
