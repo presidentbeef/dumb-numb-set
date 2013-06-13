@@ -29,6 +29,25 @@ class DumbNumbSet
 
   alias << add
 
+  # Remove number from set.
+  # Raises an ArgumentError if the number given is not a non-negative integer.
+  def remove num
+    check_num num
+
+    index = bitset_index num
+
+    bitset = @bitsets[index]
+
+    return false unless bitset
+
+    @bitsets[index] = (bitset ^ bin_index(num))
+
+    if @bitsets[index] == 0
+      @bitsets.delete index
+    end
+
+    num
+  end
   # Returns true if the given number is in the set.
   def include? num
     check_num num

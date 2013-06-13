@@ -62,4 +62,29 @@ class TestDumbNumbSet < Test::Unit::TestCase
       assert_include? i * 2
     end
   end
+
+  def test_remove
+    1000.times do |i|
+      @ns.add i
+      assert_include? i
+      @ns.remove i
+      assert_not_include? i
+    end
+
+    assert_equal 0, @ns.size
+  end
+
+  def test_invalid_input
+    assert_raises ArgumentError do
+      @ns.add -1
+    end
+
+    assert_raises ArgumentError do
+      @ns.add 4.2
+    end
+
+    assert_raises ArgumentError do
+      @ns.add false
+    end
+  end
 end
