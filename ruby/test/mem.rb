@@ -16,8 +16,8 @@ end
 
 ordered = (0..$size)
 
-data = RandThing.new
-#data = ordered
+#data = RandThing.new
+data = ordered
 
 h = Hash.new
 data.each do |d|
@@ -37,4 +37,4 @@ ns_len = Marshal.dump(ns).length
 
 puts "DNS: #{ns_len}"
 
-puts "Difference: #{((h_len - ns_len) / h_len.to_f) * 100}"
+puts "Difference: #{((h_len - ns_len) / h_len.to_f) * 100}%"
