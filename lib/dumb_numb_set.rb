@@ -125,3 +125,22 @@ class DumbNumbSet
     end
   end
 end
+
+# Custom marshal technique if MessagePack is available. Saves some bytes,
+# especially with larger integers.
+begin
+  require 'msgpack'
+
+  class DumbNumbSet
+    def marshal_dump
+      MessagePack.pack({:div => @div, :bitsets => @bitsets})
+    end
+
+    def marshal_load str
+      info = MessagePack.unpack(str)
+      @div = info["div"]
+      @bitsets = info["bitsets"]
+    end
+  end
+rescue LoadError
+end

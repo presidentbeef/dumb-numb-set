@@ -13,6 +13,10 @@ work so well.
 
     gem install dumb_numb_set
 
+Optionally:
+
+    gem install msgpack
+
 ### Usage
 
     require 'dumb_numb_set'
@@ -60,6 +64,9 @@ using `ruby 1.9.3p392 (2013-02-22 revision 39386) [x86_64-linux]`.
     100M   |   683156884  |  26163639   |  96%
       1B   |         ?    | 262229211   |   ?
     ---------------------------------------------
+
+For even smaller serialized sizes, install the [MessagePack](http://msgpack.org/)
+and the DNS will automatically use it in conjuction with `Marshal`.
 
 For 1 billion items, my machine ran out of memory (16GB).
 
