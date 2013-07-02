@@ -87,6 +87,8 @@ class DumbNumbSet
     num
   end
 
+  alias delete remove
+
   # Returns true if the given number is in the set.
   # Raises an ArgumentError if the number given is not a non-negative integer.
   def include? num
