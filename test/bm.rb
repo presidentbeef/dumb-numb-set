@@ -69,4 +69,20 @@ Benchmark.bmbm do |t|
       ns.include? d
     end
   end
+
+  t.report "Hash remove" do
+    h = hash_add order_data
+
+    order_data.each do |d|
+      h.delete d
+    end
+  end
+
+  t.report "DNS remove" do
+    ns = ns_add order_data
+
+    order_data.each do |d|
+      ns.remove d
+    end
+  end
 end
