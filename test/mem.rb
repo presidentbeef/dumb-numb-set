@@ -24,7 +24,7 @@ data.each do |d|
   h[d] = true
 end
 
-h_len = Marshal.dump(h).length
+h_len = Marshal.dump(h).bytesize
 
 puts "Hash: #{h_len}"
 
@@ -33,7 +33,7 @@ data.each do |d|
   ns.add d
 end
 
-ns_len = Marshal.dump(ns).length
+ns_len = Marshal.dump(ns).bytesize
 
 puts "DNS: #{ns_len}"
 
