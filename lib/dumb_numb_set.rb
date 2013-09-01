@@ -50,16 +50,16 @@ class DumbNumbSet
   # Add a non-negative integer to the set.
   # Raises an ArgumentError if the number given is not a non-negative integer.
   def add num
-    check_num num
+    raise ArgumentError, "Argument must be positive integer" unless num.is_a? Fixnum and num.integer? and num >= 0
 
-    index = bitset_index num
+    index = num / @div
 
     bitset = @bitsets[index]
 
     if bitset
-      @bitsets[index] = (bitset | bin_index(num))
+      @bitsets[index] = (bitset | (1 << (num % @div)))
     else
-      @bitsets[index] = bin_index(num)
+      @bitsets[index] = (1 << (num % @div))
     end
 
     self
@@ -68,17 +68,14 @@ class DumbNumbSet
   alias << add
 
   # Remove number from set.
-  # Raises an ArgumentError if the number given is not a non-negative integer.
   def remove num
-    check_num num
-
-    index = bitset_index num
+    index = num / @div
 
     bitset = @bitsets[index]
 
     return false unless bitset
 
-    @bitsets[index] = (bitset ^ bin_index(num))
+    @bitsets[index] = (bitset ^ (1 << (num % @div)))
 
     if @bitsets[index] == 0
       @bitsets.delete index
@@ -92,39 +89,18 @@ class DumbNumbSet
   # Returns true if the given number is in the set.
   # Raises an ArgumentError if the number given is not a non-negative integer.
   def include? num
-    check_num num
-
-    index = bitset_index num
+    index = num / @div
 
     bitset = @bitsets[index]
 
     return false unless bitset
 
-    bitset & bin_index(num) != 0
+    bitset & (1 << (num % @div)) != 0
   end
 
   # Returns number of keys in set (not number of values).
   def size
     @bitsets.length
-  end
-
-  private
-
-  # Calculate the bitmask to index the given number in the bitset.
-  def bin_index num
-    1 << (num % @div)
-  end
-
-  # Calculate the key of the bitset for a given number.
-  def bitset_index num
-    (num / @div)
-  end
-
-  # Check that the argument is a valid number.
-  def check_num num
-    unless num.is_a? Fixnum and num.integer? and num >= 0
-      raise ArgumentError, "Argument must be positive integer"
-    end
   end
 end
 
