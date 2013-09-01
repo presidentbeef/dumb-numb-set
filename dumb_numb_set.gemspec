@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{dumb_numb_set}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
   s.authors = ["Justin Collins"]
   s.summary = "A compact data structure for mostly consecutive, non-negative integers."
   s.description = <<DESC
