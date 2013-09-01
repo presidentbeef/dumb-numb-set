@@ -67,6 +67,16 @@ class DumbNumbSet
 
   alias << add
 
+  # Merge a collection of numbers into the set.
+  # Modifes and returns the target set.
+  def merge nums
+    nums.each do |num|
+      self.add num
+    end
+
+    self
+  end
+
   # Remove number from set.
   def remove num
     index = num / @div

@@ -38,6 +38,15 @@ class TestDumbNumbSet < Test::Unit::TestCase
     assert_not_include? 63
   end
 
+  def test_merge
+    @ns.add 1
+    @ns.add 2
+    @ns.merge 1..100
+    101.times do |i|
+      @ns.include? i
+    end
+  end
+
   def test_ordered
     100000.times do |i|
       @ns.add i
