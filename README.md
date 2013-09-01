@@ -95,22 +95,40 @@ For 1 billion items, my machine ran out of memory (16GB).
 
 ### Speed
 
-Some quick benchmarks for insertion and lookup speed. The DNS is expected to
+Some quick benchmarks for insert, remove, and lookup speed. The DNS is expected to
 be a little slower, since it is trading off speed for memory conservation and
-is written in Ruby, not C. However, it is nearly as fast for every operation
-except adding random numbers.
+is written in Ruby, not C/Java. However, it is nearly as fast for every
+operation except adding random numbers (and JRuby hashes are faster at removing
+values).
 
 Tests are run with 1 million values.
 
+ruby 1.9.3p448 (x86\_64):
 ```
                                user     system      total        real
-Hash add random            0.580000   0.000000   0.580000 (  0.578994)
-DumbNumbSet add random     1.060000   0.000000   1.060000 (  1.056919)
-Hash add in order          0.580000   0.000000   0.580000 (  0.584013)
-DumbNumbSet add in order   0.620000   0.000000   0.620000 (  0.625693)
-Hash add shuffled          0.590000   0.000000   0.590000 (  0.582023)
-DumbNumbSet add shuffled   0.690000   0.000000   0.690000 (  0.696846)
-Hash look up               1.010000   0.000000   1.010000 (  1.018742)
-DNS look up                1.080000   0.000000   1.080000 (  1.082430)
+Hash add random            0.540000   0.020000   0.560000 (  0.549499)
+DumbNumbSet add random     0.850000   0.020000   0.870000 (  0.864700)
+Hash add in order          0.540000   0.020000   0.560000 (  0.556441)
+DumbNumbSet add in order   0.490000   0.000000   0.490000 (  0.483713)
+Hash add shuffled          0.570000   0.020000   0.590000 (  0.589316)
+DumbNumbSet add shuffled   0.540000   0.010000   0.550000 (  0.538420)
+Hash look up               0.930000   0.010000   0.940000 (  0.940849)
+DNS look up                0.820000   0.000000   0.820000 (  0.818728)
+Hash remove                0.980000   0.030000   1.010000 (  0.999362)
+DNS remove                 0.950000   0.000000   0.950000 (  0.953170)
+```
 
+jruby 1.7.4:
+```
+                               user     system      total        real
+Hash add random            0.590000   0.000000   0.590000 (  0.561000)
+DumbNumbSet add random     1.670000   0.020000   1.690000 (  0.978000)
+Hash add in order          2.580000   0.010000   2.590000 (  0.809000)
+DumbNumbSet add in order   0.490000   0.000000   0.490000 (  0.319000)
+Hash add shuffled          0.730000   0.000000   0.730000 (  0.591000)
+DumbNumbSet add shuffled   0.440000   0.000000   0.440000 (  0.420000)
+Hash look up               0.730000   0.000000   0.730000 (  0.568000)
+DNS look up                0.740000   0.010000   0.750000 (  0.626000)
+Hash remove                0.270000   0.000000   0.270000 (  0.201000)
+DNS remove                 0.590000   0.000000   0.590000 (  0.564000)
 ```
