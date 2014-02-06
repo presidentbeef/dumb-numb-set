@@ -112,6 +112,18 @@ class DumbNumbSet
   def size
     @bitsets.length
   end
+
+  def each
+    @bitsets.each do |index, bitset|
+      offset = index * @div
+      (0..@div-1).each do |bit|
+        if bitset & (1 << bit) != 0
+          yield offset + bit
+        end
+      end
+    end
+  end
+  include Enumerable
 end
 
 # Custom marshal technique if MessagePack is available. Saves some bytes,
