@@ -31,6 +31,8 @@ Optionally:
 
     dns.include? 1  #=> false
 
+    dns.to_a        #=> [1]
+
 ### Tests
 
     ruby test/test.rb
