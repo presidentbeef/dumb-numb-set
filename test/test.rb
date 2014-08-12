@@ -123,4 +123,15 @@ class TestDumbNumbSet < Test::Unit::TestCase
 
     assert_equal set, @ns.to_set
   end
+
+  def test_each
+    array = (0..1000).to_a
+    result = []
+    @ns.merge array
+    @ns.each do |i|
+      result << i
+    end
+
+    assert_equal array, result
+  end
 end
