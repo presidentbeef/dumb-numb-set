@@ -34,6 +34,10 @@
 # For consecutive values, DumbNumbSet is typically ~95% smaller than a Hash when
 # comparing serialized size with `Marshal.dump`.
 #
+
+require 'json'
+
+
 class DumbNumbSet
   def initialize
     @bitsets = {}
@@ -123,24 +127,17 @@ class DumbNumbSet
       end
     end
   end
-  include Enumerable
-end
 
-# Custom marshal technique if MessagePack is available. Saves some bytes,
-# especially with larger integers.
-begin
-  require 'msgpack'
-
-  class DumbNumbSet
-    def marshal_dump
-      MessagePack.pack({:div => @div, :bitsets => @bitsets})
-    end
-
-    def marshal_load str
-      info = MessagePack.unpack(str)
-      @div = info["div"]
-      @bitsets = info["bitsets"]
-    end
+  def marshal_dump
+    {:div => @div, :bitsets => @bitsets}.to_json
   end
-rescue LoadError
+
+  def marshal_load str
+    info = JSON.parse str
+    @div = info["div"]
+    @bitsets = info["bitsets"]
+    self
+  end
+
+  include Enumerable
 end
