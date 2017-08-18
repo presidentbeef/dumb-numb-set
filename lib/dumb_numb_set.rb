@@ -136,6 +136,7 @@ class DumbNumbSet
     info = JSON.parse str
     @div = info["div"]
     @bitsets = info["bitsets"]
+    self
   end
 
   include Enumerable
