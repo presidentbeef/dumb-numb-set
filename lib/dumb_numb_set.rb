@@ -39,7 +39,7 @@ class DumbNumbSet
     @bitsets = {}
 
     # Set divisor so that bit-wise operations are always performed
-    # with Fixnums.
+    # with Integers.
     if 1.size == 4
       @div = 29
     else
@@ -50,7 +50,7 @@ class DumbNumbSet
   # Add a non-negative integer to the set.
   # Raises an ArgumentError if the number given is not a non-negative integer.
   def add num
-    raise ArgumentError, "Argument must be positive integer" unless num.is_a? Fixnum and num.integer? and num >= 0
+    raise ArgumentError, "Argument must be positive integer" unless num.is_a? Integer and num.integer? and num >= 0
 
     index = num / @div
 
