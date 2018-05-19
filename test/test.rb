@@ -86,7 +86,7 @@ class TestDumbNumbSet < Test::Unit::TestCase
 
   def test_invalid_input
     assert_raises ArgumentError do
-      @ns.add -1
+      @ns.add(-1)
     end
 
     assert_raises ArgumentError do
