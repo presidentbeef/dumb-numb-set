@@ -43,8 +43,8 @@ class TestDumbNumbSet < Test::Unit::TestCase
     @ns.add 1
     @ns.add 2
     @ns.merge 1..100
-    101.times do |i|
-      @ns.include? i
+    100.times do |i|
+      assert_include?(i + 1)
     end
   end
 
