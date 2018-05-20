@@ -43,8 +43,8 @@ class TestDumbNumbSet < Test::Unit::TestCase
     @ns.add 1
     @ns.add 2
     @ns.merge 1..100
-    101.times do |i|
-      @ns.include? i
+    100.times do |i|
+      assert_include?(i + 1)
     end
   end
 
@@ -86,7 +86,7 @@ class TestDumbNumbSet < Test::Unit::TestCase
 
   def test_invalid_input
     assert_raises ArgumentError do
-      @ns.add -1
+      @ns.add(-1)
     end
 
     assert_raises ArgumentError do
